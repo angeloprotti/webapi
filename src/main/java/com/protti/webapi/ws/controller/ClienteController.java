@@ -1,6 +1,8 @@
 package com.protti.webapi.ws.controller;
 
 import com.protti.webapi.ws.model.Cliente;
+import com.protti.webapi.ws.service.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,44 +16,8 @@ import java.util.Map;
 @RestController
 public class ClienteController {
 
-
-    Map<Integer,Cliente> clientes;
-    Integer proximoId = 1;
-
-
-    private Cliente cadastrar(Cliente cliente){
-
-        if(clientes==null){
-            clientes = new HashMap<>();
-        }
-
-        cliente.setId(proximoId);
-        proximoId++;
-
-        clientes.put(cliente.getId(),cliente);
-
-        return cliente;
-
-    }
-
-
-    private Collection<Cliente> buscarTodos(){
-        return clientes.values();
-    }
-
-
-    public void excluir(Cliente cliente){
-        clientes.remove(cliente.getId());
-    }
-
-    private Cliente buscaPorId(Integer id){
-        return clientes.get(id);
-    }
-
-    private Cliente alterar(Cliente cliente){
-        clientes.put(cliente.getId(),cliente);
-        return cliente;
-    }
+    @Autowired
+    ClienteService clienteService;
 
 
     @RequestMapping(method=RequestMethod.POST, value="/clientes",
@@ -59,7 +25,7 @@ public class ClienteController {
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente){
 
-        Cliente clienteCadastrado = cadastrar(cliente);
+        Cliente clienteCadastrado = clienteService.cadastrar(cliente);
 
         return new ResponseEntity<>(clienteCadastrado, HttpStatus.CREATED);
     }
@@ -68,7 +34,7 @@ public class ClienteController {
     @RequestMapping(method=RequestMethod.GET, value="/clientes", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Cliente>> buscarTodosCliente(){
 
-        Collection<Cliente> clientesBuscados = buscarTodos();
+        Collection<Cliente> clientesBuscados = clienteService.buscarTodos();
 
         return new ResponseEntity<>(clientesBuscados, HttpStatus.OK);
     }
@@ -77,12 +43,12 @@ public class ClienteController {
     @RequestMapping(method=RequestMethod.DELETE, value="/clientes/{id}")
     public ResponseEntity<Collection<Cliente>> excluirCliente(@PathVariable Integer id){
 
-        Cliente clienteEncontrado = buscaPorId(id);
+        Cliente clienteEncontrado = clienteService.buscaPorId(id);
 
         if(clienteEncontrado==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        excluir(clienteEncontrado);
+        clienteService.excluir(clienteEncontrado);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -92,7 +58,7 @@ public class ClienteController {
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> alterarCliente(@RequestBody Cliente cliente){
 
-        Cliente clienteAlterado = alterar(cliente);
+        Cliente clienteAlterado = clienteService.alterar(cliente);
 
         return new ResponseEntity<>(clienteAlterado, HttpStatus.OK);
     }
