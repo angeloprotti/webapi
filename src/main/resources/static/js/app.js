@@ -1,26 +1,31 @@
 
-var appCliente = angular.module("appCliente",[]);
-
-appCliente.controller("indexController", function($scope, $http){
-
-    $scope.nome = "Jao";
-    $scope.clientes = [];
-
-    $http({
-      method: 'GET',
-      url: 'http://localhost:8080/clientes'
-    }).then(function successCallback(response) {
-
-            $scope.clientes = response.data;
-            console.log(response.data);
-            console.log(response.status);
-
-      }, function errorCallback(response) {
-            console.log("Error");
-            console.log(response.data);
-            console.log(response.status);
-
-      });
+var appCliente = angular.module("appCliente",['ngRoute']);
 
 
-});
+
+appCliente.config(function($routeProvider, $locationProvider){
+
+      $routeProvider
+       .when('/clientes', {
+        templateUrl: 'view/cliente.html',
+        controller: 'clienteController'
+        })
+        .when('/estados', {
+                templateUrl: 'view/estado.html',
+                controller: 'estadoController'
+        })
+        .when('/cidades', {
+                templateUrl: 'view/cidade.html',
+                controller: 'cidadeController'
+        })
+        .otherwise({redirectTo:'/'});
+
+      // configure html5 to get links working on jsfiddle
+     $locationProvider.html5Mode({
+         enabled: true,
+         requireBase: false
+       });﻿
+    });
+
+
+
