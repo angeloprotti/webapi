@@ -7,8 +7,9 @@
 
     <div ng-repeat="cli in clientes">
         {{ cli.id + ' ' + cli.name }}
-        <input type="button" value="-" ng-click="excluirCliente(cli.id)" />
-        <input type="button" value="update" ng-click="atualizarCliente(cli)"/>
+        <a href="/clientes/{{cli.id}}"> Detalhes </a>
+        <input type="button" value="Deletar" ng-click="excluirCliente(cli.id)" />
+        <input type="button" value="Atualizar" ng-click="atualizarCliente(cli)"/>
     </div>
 
 </div>

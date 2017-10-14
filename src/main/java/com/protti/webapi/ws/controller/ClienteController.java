@@ -32,12 +32,26 @@ public class ClienteController {
 
     //SEARCH CLIENTES
     @RequestMapping(method=RequestMethod.GET, value="/clientes", produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Cliente>> buscarTodosCliente(){
+    public ResponseEntity<Collection<Cliente>> buscarTodosClientes(){
 
         Collection<Cliente> clientesBuscados = clienteService.buscarTodos();
 
         return new ResponseEntity<>(clientesBuscados, HttpStatus.OK);
     }
+
+    //SEARCH CLIENTE DETAIL
+    @RequestMapping(method=RequestMethod.GET, value="/clientes/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Cliente> buscarCliente(@PathVariable Integer id){
+
+        Cliente clienteEncontrado = clienteService.buscaPorId(id);
+
+        if(clienteEncontrado==null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(clienteEncontrado, HttpStatus.OK);
+    }
+
 
     //DELETE CLIENTES
     @RequestMapping(method=RequestMethod.DELETE, value="/clientes/{id}")

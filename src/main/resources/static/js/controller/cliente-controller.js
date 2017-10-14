@@ -1,4 +1,4 @@
-appCliente.controller("clienteController", function($scope, $http){
+appCliente.controller("clienteController", function($scope, $http, $location){
 
     $scope.clientes = [];
     $scope.cliente = {};
@@ -12,8 +12,6 @@ appCliente.controller("clienteController", function($scope, $http){
             }).then(function successCallback(response) {
 
                     $scope.clientes = response.data;
-                    console.log($scope.clientes);
-                    console.log(response.status);
 
               }, function errorCallback(response) {
                     console.log("Error");
@@ -87,6 +85,16 @@ appCliente.controller("clienteController", function($scope, $http){
         $scope.cliente = {};
         $scope.clienteAlterar = false;
     }
+
+      $scope.go = function(path){
+//            $location.path(path);
+            console.log(path);
+            console.log('ahahajahahahhahah');
+        }
+
+
+
+
 
     $scope.loadClientes();
 
