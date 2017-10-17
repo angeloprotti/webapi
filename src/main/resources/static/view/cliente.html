@@ -1,8 +1,23 @@
 <div>
 
-    <input type="text" ng-model="cliente.name"/>
-    <input type="button" value="Salvar" ng-click="salvarCliente()"/>
-    <input type="button" value="Cancelar" ng-click="cancelar()"/>
+    <form novalidate name="frmCliente">
+
+        <div>
+            <input type="text" name="txtName" ng-model="cliente.name" required />
+            <span ng-show="frmCliente.txtName.$invalid && frmCliente.txtName.$dirty">Field Required</span>
+        </div>
+        <br/>
+        <div>
+            <select ng-model="estado" ng-options="estadoSelect.uf for estadoSelect in estados"></select>
+        </div>
+
+        {{ estado }}
+
+        <br/>
+        <input type="button" value="Salvar" ng-click="salvarCliente()" ng-disabled="frmCliente.txtName.$invalid"/>
+        <input type="button" value="Cancelar" ng-click="cancelar()"/>
+
+    </form>
 
 
     <div ng-repeat="cli in clientes">

@@ -2,6 +2,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
 
     $scope.clientes = [];
     $scope.cliente = {};
+    $scope.estados = {};
     $scope.clienteAlterar = false;
 
     $scope.loadClientes = function (){
@@ -12,6 +13,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
             }).then(function successCallback(response) {
 
                     $scope.clientes = response.data;
+                    console.log(response.data);
 
               }, function errorCallback(response) {
                     console.log("Error");
@@ -23,6 +25,8 @@ appCliente.controller("clienteController", function($scope, $http, $location){
 
 
     $scope.salvarCliente = function (){
+
+        $scope.cliente.estado = $scope.estado;
 
         if($scope.clienteAlterar){
             $http({
@@ -40,7 +44,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
 
                       });
 
-                      $scope.cliente = {};
+
                       $scope.clienteAlterar = false;
         } else {
             $http({
@@ -58,6 +62,8 @@ appCliente.controller("clienteController", function($scope, $http, $location){
 
                   });
         }
+
+         $scope.cliente = {};
 
     }
 
@@ -86,16 +92,29 @@ appCliente.controller("clienteController", function($scope, $http, $location){
         $scope.clienteAlterar = false;
     }
 
-      $scope.go = function(path){
-//            $location.path(path);
-            console.log(path);
-            console.log('ahahajahahahhahah');
-        }
+
+
+     $scope.loadEstados = function (){
+
+            $http({
+                  method: 'GET',
+                  url: 'http://localhost:8080/estados'
+                }).then(function successCallback(response) {
+
+                        $scope.estados = response.data;
+                        $scope.estado = $scope.estados[0];
+
+                  }, function errorCallback(response) {
+                        console.log("Error");
+                        console.log(response.data);
+                        console.log(response.status);
+                  });
+
+        };
 
 
 
-
-
+    $scope.loadEstados();
     $scope.loadClientes();
 
 

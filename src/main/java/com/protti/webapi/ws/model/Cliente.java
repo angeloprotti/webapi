@@ -1,9 +1,7 @@
 package com.protti.webapi.ws.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Cliente {
@@ -12,6 +10,10 @@ public class Cliente {
     @GeneratedValue
     private Integer id;
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name="estado", referencedColumnName="ID")
+    private Estado estado;
 
     public Integer getId() {
         return id;
@@ -29,6 +31,11 @@ public class Cliente {
         this.name = name;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
 
-
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 }
