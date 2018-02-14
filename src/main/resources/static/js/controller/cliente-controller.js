@@ -32,7 +32,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
         if($scope.clienteAlterar){
             $http({
                       method: 'PUT',
-                      url: 'http://localhost:8080/clientes',
+                      url: 'http://localhost:8080/auth/clientes',
                       data: $scope.cliente
                     }).then(function successCallback(response) {
 
@@ -50,7 +50,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
         } else {
             $http({
                   method: 'POST',
-                  url: 'http://localhost:8080/clientes',
+                  url: 'http://localhost:8080/auth/clientes',
                   data: $scope.cliente
                 }).then(function successCallback(response) {
 
@@ -72,7 +72,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
 
             $http({
                   method: 'DELETE',
-                  url: 'http://localhost:8080/clientes/' + id
+                  url: 'http://localhost:8080/auth/clientes/' + id
                 }).then(function successCallback(response) {
                         $scope.loadClientes();
                   }, function errorCallback(response) {

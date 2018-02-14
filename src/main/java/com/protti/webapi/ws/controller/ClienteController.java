@@ -14,6 +14,7 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping("/auth")
 public class ClienteController {
 
     @Autowired

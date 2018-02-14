@@ -2,6 +2,8 @@ appCliente.controller("loginController", function($scope, $http){
 
 
         $scope.user={};
+        $scope.token={};
+
 
         $scope.auth = function(){
 
@@ -12,8 +14,8 @@ appCliente.controller("loginController", function($scope, $http){
                       data: $scope.user
                     }).then(function successCallback(response) {
 
-                            console.log("funfou");
-                            console.log(response);
+                            $scope.token = response.data;
+
 
                       }, function errorCallback(response) {
                             console.log("Error");
