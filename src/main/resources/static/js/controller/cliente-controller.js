@@ -5,6 +5,7 @@ appCliente.controller("clienteController", function($scope, $http, $location){
     $scope.estados = {};
     $scope.clienteAlterar = false;
 
+
     $scope.loadClientes = function (){
 
         $http({

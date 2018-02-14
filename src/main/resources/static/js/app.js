@@ -22,6 +22,10 @@ appCliente.config(function($routeProvider, $locationProvider){
             templateUrl: '/view/cliente-detalhe.html',
             controller: 'clienteDetalheController'
         })
+        .when('/login', {
+            templateUrl: '/view/login.html',
+            controller: 'loginController'
+        })
         .otherwise({redirectTo:'/'});
 
       // configure html5 to get links working on jsfiddle

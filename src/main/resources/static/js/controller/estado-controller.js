@@ -91,14 +91,6 @@ appCliente.controller("estadoController", function($scope, $http){
                  console.log('ahahajahahahhahah');
              }
 
-
-
-
-
-
-
-
-
     $scope.loadEstados();
 
 });
