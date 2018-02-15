@@ -1,4 +1,4 @@
-appCliente.controller("loginController", function($scope, $http){
+appCliente.controller("loginController", function($scope, $http, $location){
 
 
         $scope.user={};
@@ -14,7 +14,8 @@ appCliente.controller("loginController", function($scope, $http){
                       data: $scope.user
                     }).then(function successCallback(response) {
 
-                            $scope.token = response.data;
+                            $scope.token = response.data.token;
+                            localStorage.setItem("userToken", response.data.token);
 
 
                       }, function errorCallback(response) {

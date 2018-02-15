@@ -38,5 +38,9 @@ appCliente.config(function($routeProvider, $locationProvider){
 
     });
 
+appCliente.config(function($httpProvider){
 
+    $httpProvider.interceptors.push("requestInterceptor");
+
+});
 

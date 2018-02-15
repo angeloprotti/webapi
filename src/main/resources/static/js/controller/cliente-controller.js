@@ -8,9 +8,14 @@ appCliente.controller("clienteController", function($scope, $http, $location){
 
     $scope.loadClientes = function (){
 
+        //GETTING token from storage
+        //token = localStorage.getItem("userToken");
+        //Add token to make a request with token in header.
+        //$http.defaults.headers.common.Authorization = 'Bearer ' + token;
+
         $http({
               method: 'GET',
-              url: 'http://localhost:8080/clientes'
+              url: 'http://localhost:8080/auth/clientes'
             }).then(function successCallback(response) {
 
                     $scope.clientes = response.data;
